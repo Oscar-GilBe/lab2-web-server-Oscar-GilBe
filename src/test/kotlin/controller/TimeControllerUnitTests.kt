@@ -1,14 +1,13 @@
 package es.unizar.webeng.lab2
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.assertj.core.api.Assertions.assertThat
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.time.LocalDateTime
 
 class TimeControllerUnitTests {
-
     private lateinit var controller: TimeController
     private lateinit var timeProvider: TimeProvider
 

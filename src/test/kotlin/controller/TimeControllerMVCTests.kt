@@ -1,8 +1,8 @@
 package es.unizar.webeng.lab2
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,13 +12,12 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDateTime
 
 @WebMvcTest(TimeController::class)
 class TimeControllerMVCTests {
-
     @Autowired
     private lateinit var mockMvc: MockMvc
 
@@ -33,11 +32,13 @@ class TimeControllerMVCTests {
         val fixedNow = LocalDateTime.now()
         whenever(timeProvider.now()).thenReturn(fixedNow)
 
-        mockMvc.perform(get("/time"))
+        mockMvc
+            .perform(get("/time"))
             .andDo(print())
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect { result -> // parámetro de la lambda
+            .andExpect { result ->
+                // parámetro de la lambda
                 // Obtenemos el cuerpo de la respuesta HTTP como un string JSON
                 val json = result.response.contentAsString
 

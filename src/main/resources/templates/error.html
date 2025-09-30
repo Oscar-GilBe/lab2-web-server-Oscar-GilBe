@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Error Page</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+      }
+      .error-container {
+        margin-top: 5%;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .legend {
+        font-weight: bold;
+        color: #555;
+      }
+      h1 {
+        color: #dc3545;
+        margin-bottom: 1rem;
+      }
+      .btn-home {
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container error-container">
+      <div class="text-center">
+        <h1>Oops! Something went wrong</h1>
+        <p>It appears either something went wrong or the page doesn't exist anymore.</p>
+      </div>
+
+      <hr />
+
+      <div class="row mb-2">
+        <div class="col-md-4 legend">Date:</div>
+        <div class="col-md-8" th:text="${timestamp}"></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4 legend">Path:</div>
+        <div class="col-md-8" th:text="${path}"></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4 legend">Error:</div>
+        <div class="col-md-8" th:text="${error}"></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4 legend">Status:</div>
+        <div class="col-md-8" th:text="${status}"></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4 legend">Message:</div>
+        <div class="col-md-8" th:text="${message}"></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4 legend">Exception:</div>
+        <div class="col-md-8" th:text="${exception}"></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4 legend">Trace:</div>
+        <div class="col-md-8" th:text="${trace}"></div>
+      </div>
+    </div>
+  </body>
+</html>

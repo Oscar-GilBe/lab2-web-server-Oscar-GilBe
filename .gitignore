@@ -13,3 +13,9 @@ build
 
 # Kotlin sessions
 .kotlin/
+
+# PKCS12 keystore
+src/main/resources/localhost.p12
+
+# Secrets
+src/main/resources/application-secrets.properties

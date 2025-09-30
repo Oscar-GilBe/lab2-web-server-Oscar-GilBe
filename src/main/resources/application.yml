@@ -1,0 +1,13 @@
+spring:
+  config:
+    import: optional:classpath:application-secrets.properties
+
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: ${KEY_STORE} # ruta al keystore PKCS12
+    key-store-password: ${SSL_PASSWORD} # contraseña
+    key-store-type: PKCS12
+  http2:
+    enabled: true

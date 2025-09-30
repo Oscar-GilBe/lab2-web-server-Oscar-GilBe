@@ -10,3 +10,6 @@ build
 
 .idea
 .DS_Store
+
+# Kotlin sessions
+.kotlin/

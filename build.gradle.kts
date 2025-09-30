@@ -25,6 +25,7 @@ dependencies {
     implementation(libs.jackson.module.kotlin)
 
     testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.mockito.kotlin)
 }
 
 tasks.withType<Test> {

@@ -1,0 +1,85 @@
+<!--
+Archivo de configuración de logging para Spring Boot usando Logback.
+Genera logs en JSON, separados por logs internos y outbound,
+y ajusta niveles según el perfil (!test o test).
+-->
+<configuration>
+
+    <!-- Correlation ID MDC key -->
+    <property name="MDC_REQUEST_ID" value="X-Request-Id"/>
+
+    <!-- Console appender con formato JSON -->
+    <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- Campos adicionales fijos en el JSON: nombre de la aplicación -->
+            <customFields>{"application":"lab2-web-server"}</customFields>
+        </encoder>
+    </appender>
+
+    <!-- File appender JSON general -->
+    <appender name="JSON_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/internal.log</file>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- Campos adicionales: tipo "internal" -->
+            <customFields>{"application":"lab2-web-server","type":"internal"}</customFields>
+        </encoder>
+    </appender>
+
+    <!-- File appender JSON outbound -->
+    <appender name="OUTBOUND_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/outbound.log</file>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- Campos adicionales: tipo "outbound" -->
+            <customFields>{"application":"lab2-web-server","type":"outbound"}</customFields>
+        </encoder>
+    </appender>
+
+    <!-- ===================================================== -->
+    <!-- Configuración de loggers según perfil de Spring -->
+    <!-- ===================================================== -->
+
+    <!-- Perfil DEV/PROD (cualquier perfil distinto de test) -->
+    <springProfile name="!test">
+        <!-- Logger interno de la aplicación, nivel INFO -->
+        <logger name="es.unizar.webeng.lab2" level="INFO" additivity="false">
+            <appender-ref ref="JSON_CONSOLE"/>
+            <appender-ref ref="JSON_FILE"/>
+        </logger>
+
+        <!-- Logger para logs outbound, nivel INFO -->
+        <logger name="outbound-logs" level="INFO" additivity="false">
+            <appender-ref ref="JSON_CONSOLE"/>
+            <appender-ref ref="OUTBOUND_FILE"/>
+        </logger>
+
+        <!-- Root logger, nivel INFO -->
+        <root level="INFO">
+            <appender-ref ref="JSON_CONSOLE"/>
+            <appender-ref ref="JSON_FILE"/>
+            <appender-ref ref="OUTBOUND_FILE"/>
+        </root>
+    </springProfile>
+
+    <!-- Perfil TEST -->
+    <springProfile name="test">
+        <!-- Logger interno de la aplicación, nivel DEBUG -->
+        <logger name="es.unizar.webeng.lab2" level="DEBUG" additivity="false">
+            <appender-ref ref="JSON_CONSOLE"/>
+            <appender-ref ref="JSON_FILE"/>
+        </logger>
+
+        <!-- Logger outbound, nivel DEBUG -->
+        <logger name="outbound-logs" level="DEBUG" additivity="false">
+            <appender-ref ref="JSON_CONSOLE"/>
+            <appender-ref ref="OUTBOUND_FILE"/>
+        </logger>
+
+        <!-- Root logger, nivel DEBUG -->
+        <root level="DEBUG">
+            <appender-ref ref="JSON_CONSOLE"/>
+            <appender-ref ref="JSON_FILE"/>
+            <appender-ref ref="OUTBOUND_FILE"/>
+        </root>
+    </springProfile>
+
+</configuration>

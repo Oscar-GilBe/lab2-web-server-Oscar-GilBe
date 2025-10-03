@@ -19,3 +19,6 @@ src/main/resources/localhost.p12
 
 # Secrets
 src/main/resources/application-secrets.properties
+
+# Logs
+logs/

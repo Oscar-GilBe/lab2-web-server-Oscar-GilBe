@@ -26,6 +26,8 @@ dependencies {
     implementation(libs.slf4j.api)
     implementation(libs.jackson.databind)
 
+    implementation(libs.spring.boot.starter.security)
+
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.mockito.kotlin)
 }

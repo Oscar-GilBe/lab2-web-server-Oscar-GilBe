@@ -4,3 +4,16 @@ server:
     enabled: false
   http2:
     enabled: false
+
+spring:
+  application:
+    name: lab2-web-server
+
+logging:
+  level:
+    es.unizar.webeng.lab2: DEBUG
+    outbound-logs: DEBUG
+    root: DEBUG
+
+cors:
+  allowed-origins: http://testclient.local

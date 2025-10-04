@@ -31,13 +31,14 @@ class CorsConfig(
         config.allowedHeaders = listOf("Authorization", "Content-Type", "X-Request-Id", "Cookie", "User-Agent")
 
         // Headers expuestos al cliente (los que el navegador puede ver)
-        config.exposedHeaders = listOf(
-            "Content-Type",
-            "X-Request-Id",
-            "Access-Control-Allow-Origin",
-            "Access-Control-Allow-Credentials",
-            "Access-Control-Allow-Methods"
-        )
+        config.exposedHeaders =
+            listOf(
+                "Content-Type",
+                "X-Request-Id",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials",
+                "Access-Control-Allow-Methods",
+            )
 
         // Permitir credenciales (cookies, cabeceras de autenticación, etc.)
         config.allowCredentials = true

@@ -24,10 +24,50 @@ A minimal Spring Boot + Kotlin starter for Lab 2. Complete the tasks in `docs/GU
 ```
 
 ## Project structure
-- `src/main/kotlin/es/unizar/webeng/lab2`: application code (`Application.kt`)
-- `src/main/resources/templates`: Thymeleaf templates (e.g., `error.html`)
-- `src/main/resources`: configuration (e.g., `application.yml`, `localhost.p12`)
-- `docs/GUIDE.md`: assignment instructions
+```
+src
+├── main
+│   ├── kotlin
+│   │   └── es
+│   │       └── unizar
+│   │           └── webeng
+│   │               └── lab2                                # Application code
+│   │                   ├── Application.kt                  # Main entry point annotated with @SpringBootApplication
+│   │                   ├── TimeComponent.kt                # Component that provides time-related logic
+│   │                   ├── config
+│   │                   │   └── CorsConfig.kt               # Configures CORS settings (origins, methods, headers)
+│   │                   └── logging
+│   │                       ├── CorrelationIdFilter.kt      # Adds correlation IDs to logs/requests for tracing
+│   │                       └── RequestLoggingFilter.kt     # Logs HTTP requests and responses in structured JSON
+│   │ 
+│   └── resources                                           # Configuration
+│       ├── application-dev.yml                             # Configuration for the 'dev' Spring profile
+│       ├── application-secrets.properties                  # Sensitive properties (e.g., KEY_STORE, SSL_PASSWORD)
+│       ├── application.properties                          # Default Spring Boot configuration file
+│       ├── application.yml                                 
+│       ├── localhost.p12                                   # SSL certificate (for HTTPS)
+│       ├── logback-spring.xml                              # Logback configuration (logging levels, appenders)
+│       └── templates                                       # Thymeleaf templates
+│           └── error.html                                  # Default error page
+│
+└── test
+    ├── kotlin
+    │   ├── ErrorPageIntegrationTest.kt                     # Integration test verifying custom error page handling
+    │   ├── controller                                      # Tests related to time controller
+    │   │   ├── TimeControllerMVCTests.kt
+    │   │   └── TimeControllerUnitTests.kt
+    │   ├── cors                                            # Tests for CORS configuration and profile-specific behavior
+    │   │   ├── CorsDevProfile.kt
+    │   │   └── CorsTest.kt
+    │   └── logging                                         # Tests for logging configuration and behavior per profile
+    │       ├── LoggingDevProfile.kt
+    │       ├── LoggingTest.kt
+    │       └── LoggingTestProfile.kt
+    └── resources
+        └── application-test.yml                            # Configuration file for the 'test' Spring profile
+
+17 directories, 21 files
+```
 
 ## Assignment tasks
 See `docs/GUIDE.md` for detailed steps:
@@ -79,7 +119,7 @@ Be the first to complete **at least two** of the following tasks to earn a bonus
     - **Goal:** Enhance the flexibility and interoperability of your API.
     - **Benefit:** Shows proficiency in building RESTful services that adhere to best practices.
 
-5. **Enable CORS (Cross-Origin Resource Sharing) Support**
+5. **Enable CORS (Cross-Origin Resource Sharing) Support** ✅
 
     - **Description:** Configure CORS with explicit allowed origins, methods, headers, credentials, and max-age for the `/time` endpoint (or globally). Do not use wildcard `*` when credentials are allowed. Externalize allowed origins via configuration and vary them by profile.
     - **JUnit Test:** Test preflight `OPTIONS` and actual `GET` verifying `Access-Control-Allow-*` headers, including credentials behavior and that disallowed origins are rejected. Assert that configured origins are picked from properties at runtime and differ by profile.
@@ -100,7 +140,7 @@ Be the first to complete **at least two** of the following tasks to earn a bonus
     - **Goal:** Improve API usability and provide a professional touch to your application.
     - **Benefit:** Improves API usability and provides a professional touch to your application.
 
-8. **Implement Logging with SLF4J and Logback**
+8. **Implement Logging with SLF4J and Logback** ✅
 
     - **Description:** Configure structured JSON logging (e.g., Logstash encoder), propagate a correlation id (e.g., `X-Request-Id`) via MDC across async boundaries, and set different log levels per profile. Mask sensitive headers/fields (e.g., `Authorization`) in logs and include request duration.
     - **JUnit Test:** Use a test appender to verify logs contain correlation id, endpoint path, JSON structure, and duration; assert level differences across profiles and that sensitive fields are masked.
